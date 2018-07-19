@@ -63,7 +63,7 @@ If you want to dynamically generate widgets:
 ```xml
 <!-- You can now use your library component in app.component.html -->  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
 	<button (click)="AddWidget()">Add Widget</button>
-<grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
+<ngx-grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
     <ngx-grid-stack-item *ngFor="let widget of widgets" id="widget-{{widget.ID}}" [option]="widget.Item" class="ngx-grid-stack-item">
       <div class="widget-header">
         <div class="widget-header-text">{{widget.Caption}}</div>
@@ -72,7 +72,7 @@ If you want to dynamically generate widgets:
         
       </div>
 	</ngx-grid-stack-item>
-</grid-stack>
+</ngx-grid-stack>
 ```
 ```typescript
 import { Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
