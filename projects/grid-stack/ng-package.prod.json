@@ -1,0 +1,7 @@
+{
+  "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
+  "dest": "../../dist/grid-stack",
+  "lib": {
+    "entryFile": "src/public_api.ts"
+  }
+}

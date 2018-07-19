@@ -1,27 +1,133 @@
-# NgxGridStackApp
+# ngx-grid-stack
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+## Installation
 
-## Development server
+To install this library, run:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```bash
+$ npm install ngx-grid-stack --save
+```
 
-## Code scaffolding
+## Consuming your library
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Once you have published your library to npm, you can import your library in any Angular application by running:
 
-## Build
+```bash
+$ npm install ngx-grid-stack
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Then add reference to the gridstask.js and lodash to your index.html for how to do it check their site at 
+- https://github.com/gridstack/gridstack.js
 
-## Running unit tests
+and then from your Angular `AppModule`:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```typescript
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-## Running end-to-end tests
+import { AppComponent } from './app.component';
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+// Import your library
+import { GridStackModule } from 'ngx-grid-stack';
 
-## Further help
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+    // Specify your library as an import
+    GridStackModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Once your library is imported, you can use its components, directives and pipes in your Angular application:
+
+```xml
+<!-- You can now use your library component in app.component.html -->
+<ngx-grid-stack class="grid-stack" [options]="options">
+  <ngx-grid-stack-item [option]="widget1" class="ngx-grid-stack-item"  >
+  </ngx-grid-stack-item>
+  <ngx-grid-stack-item [option]="widget2" class="ngx-grid-stack-item" >
+  </ngx-grid-stack-item>
+</ngx-grid-stack>
+```
+
+If you want to dynamically generate widgets:
+
+```xml
+<!-- You can now use your library component in app.component.html -->  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
+	<button (click)="AddWidget()">Add Widget</button>
+<grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
+    <ngx-grid-stack-item *ngFor="let widget of widgets" id="widget-{{widget.ID}}" [option]="widget.Item" class="ngx-grid-stack-item">
+      <div class="widget-header">
+        <div class="widget-header-text">{{widget.Caption}}</div>
+      </div>
+      <div class="widget-content">
+        
+      </div>
+	</ngx-grid-stack-item>
+</grid-stack>
+```
+```typescript
+import { Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent} from 'ngx-grid-stack'
+
+@Component({
+  selector: 'app-grid-stack',
+  templateUrl: './app-grid-stack.component.html'
+})
+export class DashboardComponent implements OnInit {
+	@ViewChildren(GridStackItemComponent) items: QueryList<GridStackItemComponent>;
+    @ViewChild('gridStackMain') gridStackMain: GridStackComponent;
+	area: GridStackOptions = new GridStackOptions();
+  widgets: GridStackItem[] = [];
+	
+	constructor(private cd: ChangeDetectorRef) {
+      
+	}
+
+	AddWidget(widgetType: DashboardWidgetTypeEnum) {
+      var widget = new GridStackItem();
+      
+      widget.width = 6;
+      widget.height = 4;
+      widget.x = 0;
+      widget.y = 0;
+      this.widgets.push(widget);
+      this.cd.detectChanges();
+      var arr = this.items.toArray();
+      this.gridStackMain.AddWidget(arr[this.items.length - 1]);
+  }
+}
+```
+
+## Development
+
+To generate all `*.js`, `*.d.ts` and `*.metadata.json` files:
+
+```bash
+$ npm run build
+```
+
+To lint all `*.ts` files:
+
+```bash
+$ npm run lint
+```
+## Credit
+
+I was looking for integrating cleanly the amazing gridstack.js (https://github.com/gridstack/gridstack.js) library with angular 4 and found this thread on stack overflow
+https://stackoverflow.com/questions/39901473/wrap-gridstack-js-into-angular-2-component
+Credit Goes to Answers from those users
+https://stackoverflow.com/users/3758236/user3758236
+https://stackoverflow.com/users/3112339/etchelon
+
+## License
+
+MIT © [Ramy Othman](mailto:ramy.mostafa@gmail.com)
