@@ -16,8 +16,20 @@ Once you have published your library to npm, you can import your library in any 
 $ npm install ngx-grid-stack
 ```
 
-Then add reference to the gridstask.js and lodash to your index.html for how to do it check their site at 
+Then add reference to the gridstask.js, jquery, jqueryui and lodash to your index.html for how to do it check their site at 
 - https://github.com/gridstack/gridstack.js
+
+```html
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+  <script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+<script type="text/javascript" src='//cdnjs.cloudflare.com/ajax/libs/gridstack.js/0.4.0/gridstack.min.js'></script>
+<script type="text/javascript" src='assets/vendor/gridstack/gridstack.all.js'></script>
+```
 
 and then from your Angular `AppModule`:
 
