@@ -15,25 +15,27 @@
     "build_lib": "ng build --prod grid-stack",
     "npm_pack": "cd dist/grid-stack && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
-    "start:prod": "node --max-old-space-size=8192 node_modules/@angular/cli/bin/ng build --prod && lite-server --baseDir dist/grid-stack",
+    "start:prod": "node --max-old-space-size=8192 node_modules/@angular/cli/bin/ng build --prod && lite-server --baseDir dist/ngx-grid-stack-app",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": false,
   "dependencies": {
-    "@angular/common": "^6.0.3",
-    "@angular/core": "^6.0.3",
-    "@angular/compiler": "^6.0.3",
     "@angular/animations": "^6.0.3",
+    "@angular/common": "^6.0.3",
+    "@angular/compiler": "^6.0.3",
+    "@angular/core": "^6.0.3",
     "@angular/forms": "^6.0.3",
     "@angular/http": "^6.0.3",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/pwa": "^0.6.8",
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26"
+    "zone.js": "^0.8.26",
+    "@angular/service-worker": "^6.0.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.8",
