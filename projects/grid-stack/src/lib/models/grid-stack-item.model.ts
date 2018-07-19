@@ -1,22 +1,22 @@
 
 export class GridStackItem {
-    x: number = 0;
-    y: number = 0;
-    height: number = 1;
-    width: number = 1;
+    x = 0;
+    y = 0;
+    height = 1;
+    width = 1;
     maxHeight: number;
     minHeight: number;
     maxWidth: number;
     minWidth: number;
-    noResize: boolean = false;
+    noResize = false;
     noMove: boolean;
-    autoPosition: boolean = false;
-    marginWidth: string = "10px";
+    autoPosition = false;
+    marginWidth = '10px';
     locked: boolean;
     el: any;
     customId: string;
     static Clone(widget: GridStackItem) {
-        var result = new GridStackItem();
+        const result = new GridStackItem();
 
         result.autoPosition = widget.autoPosition;
         result.customId = widget.customId;

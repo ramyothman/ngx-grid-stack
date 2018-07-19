@@ -1,4 +1,4 @@
-import { GridStackModule } from 'grid-stack';
+import { GridStackModule } from './../../projects/grid-stack/src/lib/grid-stack.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 

@@ -50,7 +50,7 @@ export class GridStackComponent implements AfterContentInit {
         if (item.option != null && item.option.noResize != null && item.option.noResize) {
           return;
         }
-
+        this.grid.makeWidget(item.nativeElement);
         this.grid.resizable(item.nativeElement, true);
         this.grid.move(item.nativeElement, item.option.x, item.option.y);
         this.grid.resize(item.nativeElement, item.option.width, item.option.height);

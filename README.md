@@ -51,9 +51,9 @@ Once your library is imported, you can use its components, directives and pipes 
 ```xml
 <!-- You can now use your library component in app.component.html -->
 <ngx-grid-stack class="grid-stack" [options]="options">
-  <ngx-grid-stack-item [option]="widget1" class="ngx-grid-stack-item"  >
+  <ngx-grid-stack-item [option]="widget1" class="grid-stack-item"  >
   </ngx-grid-stack-item>
-  <ngx-grid-stack-item [option]="widget2" class="ngx-grid-stack-item" >
+  <ngx-grid-stack-item [option]="widget2" class="grid-stack-item" >
   </ngx-grid-stack-item>
 </ngx-grid-stack>
 ```
@@ -62,49 +62,75 @@ If you want to dynamically generate widgets:
 
 ```xml
 <!-- You can now use your library component in app.component.html -->  <grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
-	<button (click)="AddWidget()">Add Widget</button>
-<ngx-grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="area">
-    <ngx-grid-stack-item *ngFor="let widget of widgets" id="widget-{{widget.ID}}" [option]="widget.Item" class="ngx-grid-stack-item">
+<button (click)="AddWidget()">Add Widget</button>
+<ngx-grid-stack #gridStackMain id="gridStackMain" class="grid-stack" [options]="options">
+    <ngx-grid-stack-item *ngFor="let widget of widgets" id="widget-{{widget.customId}}" [option]="widget" class="grid-stack-item">
       <div class="widget-header">
-        <div class="widget-header-text">{{widget.Caption}}</div>
+        <div class="widget-header-text">Test</div>
       </div>
       <div class="widget-content">
-        
+
       </div>
 	</ngx-grid-stack-item>
 </ngx-grid-stack>
 ```
 ```typescript
 import { Component, OnInit, ViewChildren, QueryList, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent} from 'ngx-grid-stack'
+import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent} from 'grid-stack'
 
 @Component({
   selector: 'app-grid-stack',
   templateUrl: './app-grid-stack.component.html'
 })
-export class DashboardComponent implements OnInit {
-	@ViewChildren(GridStackItemComponent) items: QueryList<GridStackItemComponent>;
-    @ViewChild('gridStackMain') gridStackMain: GridStackComponent;
-	area: GridStackOptions = new GridStackOptions();
-  widgets: GridStackItem[] = [];
-	
-	constructor(private cd: ChangeDetectorRef) {
-      
-	}
+export class AppComponent {
+  @ViewChildren(GridStackItemComponent) items: QueryList<GridStackItemComponent>;
+  @ViewChild('gridStackMain') gridStackMain: GridStackComponent;
+  options: GridStackOptions = new GridStackOptions();
+  widget1 = {
+    x: 0,
+    y: 0,
+    height: 6,
+    width: 6
+  };
 
-	AddWidget(widgetType: DashboardWidgetTypeEnum) {
-      var widget = new GridStackItem();
-      
-      widget.width = 6;
-      widget.height = 4;
-      widget.x = 0;
-      widget.y = 0;
-      this.widgets.push(widget);
+  widget2 = {
+    x: 6,
+    y: 0,
+    height: 6,
+    width: 6
+  };
+
+  widgets: GridStackItem[] = [];
+  constructor(private cd: ChangeDetectorRef) {}
+
+  AddWidget() {
+      const widgetItem = new GridStackItem();
+
+      widgetItem.width = 6;
+      widgetItem.height = 4;
+      widgetItem.x = 0;
+      widgetItem.y = 0;
+      widgetItem.customId = this.widgets.length.toString();
+      this.widgets.push(widgetItem);
       this.cd.detectChanges();
-      var arr = this.items.toArray();
+      const arr = this.items.toArray();
       this.gridStackMain.AddWidget(arr[this.items.length - 1]);
+
+      for (let index = 0; index < arr.length; index++) {
+        const widget = arr[index];
+        const widgitInitialized = widget.nativeElement.getAttribute('data-gs-init');
+        const hasDraggable = widget.nativeElement.classList.contains('ui-draggable');
+
+        if (widgitInitialized !== 'true' && !hasDraggable) {
+          widget.nativeElement.setAttribute('data-gs-init', 'true');
+          this.gridStackMain.AddWidget(widget);
+        } else if (widgitInitialized !== 'true') {
+          widget.nativeElement.setAttribute('data-gs-init', 'true');
+        }
+      }
   }
 }
+
 ```
 
 ## Development
