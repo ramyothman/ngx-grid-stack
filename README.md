@@ -40,7 +40,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 // Import your library
-import { GridStackModule } from 'ngx-grid-stack';
+import { GridStackModule } from 'grid-stack';
 
 @NgModule({
   declarations: [

@@ -54,11 +54,6 @@ export class AppComponent {
         } else if (widgitInitialized !== 'true') {
           widget.nativeElement.setAttribute('data-gs-init', 'true');
         }
-        // const wIndex = this.widgets.findIndex(iw => iw.id === widget.option.customId);
-        // if (wIndex === -1) {
-
-        //   this.gridStackDashboard.RemoveWidget(widget);
-        // }
       }
   }
 }
