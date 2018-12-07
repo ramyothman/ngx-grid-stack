@@ -39,15 +39,19 @@ export class GridStackItemComponent implements OnInit, OnDestroy, AfterViewInit 
     this.renderer.setElementAttribute(this.nativeElement, 'data-gs-y', String(this.option.y));
     this.renderer.setElementAttribute(this.nativeElement, 'data-gs-width', String(this.option.width));
     this.renderer.setElementAttribute(this.nativeElement, 'data-gs-height', String(this.option.height));
+
     if (this.option.minWidth) {
       renderer.setElementAttribute(this.nativeElement, 'data-gs-min-width', String(this.option.minWidth));
     }
+
     if (this.option.maxHeight) {
       renderer.setElementAttribute(this.nativeElement, 'data-gs-max-height', String(this.option.maxHeight));
     }
+
     if (this.option.maxWidth) {
       renderer.setElementAttribute(this.nativeElement, 'data-gs-max-width', String(this.option.maxWidth));
     }
+
     if (this.option.minHeight) {
       renderer.setElementAttribute(this.nativeElement, 'data-gs-min-height', String(this.option.minHeight));
     }
