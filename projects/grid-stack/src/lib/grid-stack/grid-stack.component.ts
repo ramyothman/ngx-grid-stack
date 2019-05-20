@@ -69,7 +69,7 @@ export class GridStackComponent implements AfterContentInit {
 
         for (const key of Object.keys(this.defaultOptions)) {
           if (!this.options.hasOwnProperty(key)) {
-            this.options = this.defaultOptions[key];
+            this.options[key] = this.defaultOptions[key];
           }
         }
 
