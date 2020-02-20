@@ -1,4 +1,7 @@
-import { Component, Input, Output, OnInit, ComponentRef, ElementRef, ViewChild, Renderer, EventEmitter, OnDestroy, AfterViewInit, ViewContainerRef } from '@angular/core';
+import {
+  Component, Input, Output, OnInit, ComponentRef, ElementRef, ViewChild,
+  EventEmitter, OnDestroy, AfterViewInit, ViewContainerRef, Renderer2
+} from '@angular/core';
 import { GridStackItem } from './../models/grid-stack-item.model';
 declare var jQuery: any;
 declare var _: any;
@@ -17,7 +20,7 @@ export class GridStackItemComponent implements OnInit, OnDestroy, AfterViewInit 
   jGridRef: any = null;
   public jWidgetRef: any = null;
 
-  constructor(private el: ElementRef, private renderer: Renderer) {
+  constructor(private el: ElementRef, private renderer: Renderer2) {
     this.jWidgetRef = el.nativeElement;
   }
   get nativeElement(): HTMLElement {
@@ -27,37 +30,37 @@ export class GridStackItemComponent implements OnInit, OnDestroy, AfterViewInit 
     this.RenderWidget(null);
   }
 
-  UpdateWidget(item: GridStackItem) {}
+  UpdateWidget(item: GridStackItem) { }
   RenderWidget(item: GridStackItem) {
     const renderer = this.renderer;
     if (item != null) {
       this.option = item;
     }
 
-    this.renderer.setElementAttribute(this.nativeElement, 'style', 'margin-left:' + this.option.marginWidth + ';');
-    this.renderer.setElementAttribute(this.nativeElement, 'data-gs-x', String(this.option.x));
-    this.renderer.setElementAttribute(this.nativeElement, 'data-gs-y', String(this.option.y));
-    this.renderer.setElementAttribute(this.nativeElement, 'data-gs-width', String(this.option.width));
-    this.renderer.setElementAttribute(this.nativeElement, 'data-gs-height', String(this.option.height));
+    __ngRendererSetElementAttributeHelper(this.renderer, this.nativeElement, 'style', 'margin-left:' + this.option.marginWidth + ';');
+    __ngRendererSetElementAttributeHelper(this.renderer, this.nativeElement, 'data-gs-x', String(this.option.x));
+    __ngRendererSetElementAttributeHelper(this.renderer, this.nativeElement, 'data-gs-y', String(this.option.y));
+    __ngRendererSetElementAttributeHelper(this.renderer, this.nativeElement, 'data-gs-width', String(this.option.width));
+    __ngRendererSetElementAttributeHelper(this.renderer, this.nativeElement, 'data-gs-height', String(this.option.height));
 
     if (this.option.minWidth) {
-      renderer.setElementAttribute(this.nativeElement, 'data-gs-min-width', String(this.option.minWidth));
+      __ngRendererSetElementAttributeHelper(renderer, this.nativeElement, 'data-gs-min-width', String(this.option.minWidth));
     }
 
     if (this.option.maxHeight) {
-      renderer.setElementAttribute(this.nativeElement, 'data-gs-max-height', String(this.option.maxHeight));
+      __ngRendererSetElementAttributeHelper(renderer, this.nativeElement, 'data-gs-max-height', String(this.option.maxHeight));
     }
 
     if (this.option.maxWidth) {
-      renderer.setElementAttribute(this.nativeElement, 'data-gs-max-width', String(this.option.maxWidth));
+      __ngRendererSetElementAttributeHelper(renderer, this.nativeElement, 'data-gs-max-width', String(this.option.maxWidth));
     }
 
     if (this.option.minHeight) {
-      renderer.setElementAttribute(this.nativeElement, 'data-gs-min-height', String(this.option.minHeight));
+      __ngRendererSetElementAttributeHelper(renderer, this.nativeElement, 'data-gs-min-height', String(this.option.minHeight));
     }
 
     if (this.option.noResize != null && this.option.noResize === true) {
-      renderer.setElementAttribute(this.nativeElement, 'data-gs-no-resize', 'yes');
+      __ngRendererSetElementAttributeHelper(renderer, this.nativeElement, 'data-gs-no-resize', 'yes');
     }
   }
 
@@ -78,11 +81,34 @@ export class GridStackItemComponent implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   ngOnDestroy(): void {
     if (this.contentComponentRef !== null) {
       this.contentComponentRef.destroy();
     }
+  }
+}
+
+type AnyDuringRendererMigration = any;
+
+function __ngRendererSplitNamespaceHelper(name: AnyDuringRendererMigration) {
+  if (name[0] === ':') {
+    const match = name.match(/^:([^:]+):(.+)$/);
+    return [match[1], match[2]];
+  }
+  return ['', name];
+}
+
+function __ngRendererSetElementAttributeHelper(
+  renderer: AnyDuringRendererMigration,
+  element: AnyDuringRendererMigration,
+  namespaceAndName: AnyDuringRendererMigration,
+  value?: AnyDuringRendererMigration) {
+  const [namespace, name] = __ngRendererSplitNamespaceHelper(namespaceAndName);
+  if (value != null) {
+    renderer.setAttribute(element, name, value, namespace);
+  } else {
+    renderer.removeAttribute(element, name, namespace);
   }
 }
