@@ -11,7 +11,7 @@ import { GridStackItemComponent} from './../../projects/grid-stack/src/lib/grid-
 })
 export class AppComponent {
   @ViewChildren(GridStackItemComponent) items: QueryList<GridStackItemComponent>;
-  @ViewChild('gridStackMain') gridStackMain: GridStackComponent;
+  @ViewChild('gridStackMain', { static: true }) gridStackMain: GridStackComponent;
   options: GridStackOptions = new GridStackOptions();
   widget1 = {
     x: 0,
@@ -33,15 +33,15 @@ export class AppComponent {
   AddWidget() {
       const widgetItem = new GridStackItem();
 
-      //widgetItem.width = 6;
-      //widgetItem.height = 4;
+      // widgetItem.width = 6;
+      // widgetItem.height = 4;
       widgetItem.x = 0;
       widgetItem.y = 0;
       widgetItem.customId = this.widgets.length.toString();
       widgetItem.minHeight = 4;
       widgetItem.minWidth = 6;
-      //widgetItem.maxHeight = 4;
-      //widgetItem.maxWidth = 6;
+      // widgetItem.maxHeight = 4;
+      // widgetItem.maxWidth = 6;
       this.widgets.push(widgetItem);
       this.cd.detectChanges();
       const arr = this.items.toArray();
